@@ -11,6 +11,7 @@ This repository logs all projects, websites, and tools built for ZuAfrique.
 | Project | Description | Live URL | Status |
 |---------|-------------|----------|--------|
 | [Commitment Wall](./commitment-wall/) | Anthropic Certification self-study group signup and proof-of-work tracker | [zuafrique-commitment.pages.dev](https://zuafrique-commitment.pages.dev) | Live |
+| Yoga — Beginner Flow | Guided 1-hour beginner yoga session with breathing, warm-up, and flow sequence | [zuafrique-yoga.netlify.app](https://zuafrique-yoga.netlify.app) | Live |
 
 ---
 
