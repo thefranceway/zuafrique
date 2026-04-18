@@ -548,16 +548,7 @@
   <div class="toast" id="toast">Commitment posted</div>
 
   <script>
-    const KEY = 'zuafrique_commitments';
-
-    function load() {
-      try { return JSON.parse(localStorage.getItem(KEY)) || []; }
-      catch { return []; }
-    }
-
-    function save(data) {
-      localStorage.setItem(KEY, JSON.stringify(data));
-    }
+    const API = 'https://zuafrique-commitment-api.thefranceway.workers.dev';
 
     function fmt(iso) {
       return new Date(iso).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
@@ -567,8 +558,7 @@
       return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
     }
 
-    function render() {
-      const data = load();
+    function renderWall(data) {
       document.getElementById('count').textContent = data.length;
       const wall = document.getElementById('wall');
 
@@ -577,13 +567,24 @@
         return;
       }
 
-      wall.innerHTML = data.slice().reverse().map(c => `
+      wall.innerHTML = data.map(c => `
         <div class="commit-card">
           <div class="c-name"><div class="c-dot"></div>${esc(c.name)}</div>
           <ul class="c-builds">${c.builds.map(b => `<li>${esc(b)}</li>`).join('')}</ul>
           <div class="c-date">Committed ${fmt(c.date)}</div>
         </div>
       `).join('');
+    }
+
+    async function loadWall() {
+      try {
+        const res = await fetch(`${API}/commitments`);
+        const data = await res.json();
+        renderWall(data);
+      } catch {
+        document.getElementById('wall').innerHTML =
+          `<div class="empty"><strong>Could not load commitments.</strong>Check your connection and refresh.</div>`;
+      }
     }
 
     function toast(msg) {
@@ -593,7 +594,7 @@
       setTimeout(() => t.classList.remove('show'), 3000);
     }
 
-    function submitCommitment() {
+    async function submitCommitment() {
       const name = document.getElementById('inp-name').value.trim();
       const b1   = document.getElementById('b1').value.trim();
       const b2   = document.getElementById('b2').value.trim();
@@ -602,14 +603,28 @@
       if (!name)       { alert('Please add your name.'); return; }
       if (!b1 && !b2)  { alert('Add at least 2 projects you will build.'); return; }
 
-      const builds = [b1, b2, b3].filter(Boolean);
-      const data = load();
-      data.push({ name, builds, date: new Date().toISOString() });
-      save(data);
-      render();
-      toast('Commitment posted ✓');
+      const btn = document.querySelector('.btn-submit');
+      btn.disabled = true;
+      btn.textContent = 'Posting…';
 
-      ['inp-name','b1','b2','b3'].forEach(id => document.getElementById(id).value = '');
+      try {
+        const res = await fetch(`${API}/commitments`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ name, builds: [b1, b2, b3].filter(Boolean) }),
+        });
+
+        if (!res.ok) throw new Error('Post failed');
+
+        ['inp-name','b1','b2','b3'].forEach(id => document.getElementById(id).value = '');
+        toast('Commitment posted ✓');
+        await loadWall();
+      } catch {
+        toast('Something went wrong — try again');
+      } finally {
+        btn.disabled = false;
+        btn.textContent = 'Post my commitment →';
+      }
     }
 
     document.addEventListener('keydown', e => {
@@ -619,7 +634,7 @@
       }
     });
 
-    render();
+    loadWall();
   </script>
 </body>
 </html>

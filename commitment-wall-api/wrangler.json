@@ -1,0 +1,12 @@
+{
+  "name": "zuafrique-commitment-api",
+  "main": "worker.js",
+  "compatibility_date": "2025-01-01",
+  "d1_databases": [
+    {
+      "binding": "DB",
+      "database_name": "zuafrique-commitments",
+      "database_id": "17d6c6ff-13bd-485e-a846-d6b12c144907"
+    }
+  ]
+}
