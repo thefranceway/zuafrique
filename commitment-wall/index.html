@@ -4,6 +4,8 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>ZuAfrique × Anthropic Certification — Commitment Wall</title>
+  <link rel="icon" type="image/x-icon" href="./favicon.ico" />
+  <link rel="apple-touch-icon" href="./favicon.ico" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Ojuju:wght@400;600;700;800&family=Mona+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" />
@@ -428,6 +430,154 @@
       margin-bottom: 8px;
     }
 
+    /* ── STUDY GUIDES ─────────────────────────────────────────────── */
+    .guides-section {
+      margin-top: 56px;
+    }
+
+    .guides-header {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      margin-bottom: 20px;
+    }
+
+    .guides-header-line {
+      flex: 1;
+      height: 1px;
+      background: var(--border);
+    }
+
+    .guides-header-label {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-family: var(--font-display);
+      font-size: 22px;
+      font-weight: 700;
+      white-space: nowrap;
+    }
+
+    .guides-sub {
+      font-size: 14px;
+      color: var(--text-muted);
+      margin-bottom: 24px;
+      line-height: 1.55;
+    }
+
+    .guides-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+      gap: 16px;
+    }
+
+    .guide-card {
+      background: var(--surface);
+      border: 1px solid var(--border-lit);
+      border-radius: var(--radius);
+      padding: 24px 26px;
+      text-decoration: none;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      transition: border-color 0.15s, transform 0.15s;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .guide-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 2px;
+      background: var(--grad-brand);
+      opacity: 0;
+      transition: opacity 0.15s;
+    }
+
+    .guide-card:hover {
+      border-color: var(--orange);
+      transform: translateY(-2px);
+    }
+
+    .guide-card:hover::before { opacity: 1; }
+
+    .guide-module {
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--orange);
+    }
+
+    .guide-title {
+      font-family: var(--font-display);
+      font-size: 18px;
+      font-weight: 700;
+      color: var(--text);
+      line-height: 1.2;
+    }
+
+    .guide-desc {
+      font-size: 13px;
+      color: var(--text-muted);
+      line-height: 1.55;
+    }
+
+    .guide-footer {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-top: 6px;
+      padding-top: 14px;
+      border-top: 1px solid var(--border);
+    }
+
+    .guide-topics {
+      font-size: 11px;
+      color: var(--text-muted);
+      letter-spacing: 0.03em;
+    }
+
+    .guide-arrow {
+      font-size: 18px;
+      color: var(--orange);
+      transition: transform 0.15s;
+    }
+
+    .guide-card:hover .guide-arrow { transform: translateX(4px); }
+
+    .guide-card-locked {
+      background: var(--surface);
+      border: 1px dashed var(--border);
+      border-radius: var(--radius);
+      padding: 24px 26px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      opacity: 0.45;
+    }
+
+    .guide-locked-badge {
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+    }
+
+    .guide-locked-title {
+      font-family: var(--font-display);
+      font-size: 18px;
+      font-weight: 700;
+      color: var(--text-dim);
+    }
+
+    .guide-locked-note {
+      font-size: 12px;
+      color: var(--text-muted);
+    }
+
     /* ── FOOTER ───────────────────────────────────────────────────── */
     .footer {
       text-align: center;
@@ -576,6 +726,62 @@
       </div>
 
       <button type="button" class="btn-submit" onclick="submitCommitment()">Post my commitment →</button>
+    </div>
+
+    <!-- STUDY GUIDES -->
+    <div class="guides-section">
+      <div class="guides-header">
+        <div class="guides-header-line"></div>
+        <div class="guides-header-label">
+          Study Guides
+          <div class="count-pill">1 of 5 ready</div>
+        </div>
+        <div class="guides-header-line"></div>
+      </div>
+      <p class="guides-sub">One guide per certification module — with what it is, memory tricks, common mistakes, and quick-recall tables. Updated as we go through each module together.</p>
+
+      <div class="guides-grid">
+
+        <!-- MODULE 1 — LIVE -->
+        <a class="guide-card" href="./claude-101-study-guide.html" target="_blank">
+          <div class="guide-module">Module 1 · Claude 101</div>
+          <div class="guide-title">The Claude 101 Study Guide</div>
+          <div class="guide-desc">Prompt frameworks, the 4D model, Projects, Skills, Artifacts, Research vs Extended Thinking — with exam traps called out.</div>
+          <div class="guide-footer">
+            <div class="guide-topics">SDR · 4D · RAG · Research · Cowork</div>
+            <div class="guide-arrow">→</div>
+          </div>
+        </a>
+
+        <!-- MODULE 2 — LOCKED -->
+        <div class="guide-card-locked">
+          <div class="guide-locked-badge">Module 2 · Coming Soon</div>
+          <div class="guide-locked-title">Claude Code 101</div>
+          <div class="guide-locked-note">Guide drops when we finish the module</div>
+        </div>
+
+        <!-- MODULE 3 — LOCKED -->
+        <div class="guide-card-locked">
+          <div class="guide-locked-badge">Module 3 · Coming Soon</div>
+          <div class="guide-locked-title">Claude Code in Action</div>
+          <div class="guide-locked-note">Guide drops when we finish the module</div>
+        </div>
+
+        <!-- MODULE 4 — LOCKED -->
+        <div class="guide-card-locked">
+          <div class="guide-locked-badge">Module 4 · Coming Soon</div>
+          <div class="guide-locked-title">Building with the Claude API</div>
+          <div class="guide-locked-note">Guide drops when we finish the module</div>
+        </div>
+
+        <!-- MODULE 5 — LOCKED -->
+        <div class="guide-card-locked">
+          <div class="guide-locked-badge">Module 5 · Coming Soon</div>
+          <div class="guide-locked-title">Model Context Protocol</div>
+          <div class="guide-locked-note">Guide drops when we finish the module</div>
+        </div>
+
+      </div>
     </div>
 
     <!-- WALL HEADER -->

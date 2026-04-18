@@ -1,0 +1,765 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Claude 101 — Certification Study Guide</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --cream: #FAF6EF;
+    --warm-white: #FDF9F3;
+    --ink: #1C1610;
+    --ink-light: #4A3F35;
+    --amber: #C8640A;
+    --amber-light: #F0A050;
+    --amber-pale: #FDE8CC;
+    --teal: #0D7E6E;
+    --teal-pale: #D0EDE9;
+    --plum: #6B2D5E;
+    --plum-pale: #EDD8EA;
+    --slate: #2C4A6E;
+    --slate-pale: #D5E3F0;
+    --rust: #B84030;
+    --rust-pale: #F5DEDA;
+    --sage: #3D6B4F;
+    --sage-pale: #D4E8DA;
+    --gold: #9A7A20;
+    --gold-pale: #F2E7C0;
+    --border: #E0D5C5;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background-color: var(--cream);
+    font-family: 'DM Sans', sans-serif;
+    color: var(--ink);
+    padding: 48px 40px 72px;
+    min-height: 100vh;
+  }
+
+  /* ── HEADER ── */
+  .page-header {
+    text-align: center;
+    margin-bottom: 48px;
+  }
+
+  .exam-badge {
+    display: inline-block;
+    background: var(--ink);
+    color: var(--cream);
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    padding: 5px 14px;
+    border-radius: 2px;
+    margin-bottom: 18px;
+  }
+
+  .page-header h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(32px, 5vw, 56px);
+    font-weight: 900;
+    line-height: 1.05;
+    color: var(--ink);
+    margin-bottom: 10px;
+  }
+
+  .page-header h1 em {
+    font-style: normal;
+    color: var(--amber);
+  }
+
+  .page-header p {
+    font-size: 15px;
+    color: var(--ink-light);
+    font-weight: 300;
+    letter-spacing: 0.01em;
+  }
+
+  .divider {
+    width: 60px;
+    height: 2px;
+    background: var(--amber);
+    margin: 18px auto 0;
+  }
+
+  /* ── SECTION LABEL ── */
+  .section-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--ink-light);
+    margin-bottom: 16px;
+    padding-left: 2px;
+  }
+
+  /* ── GRID ── */
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+    max-width: 1160px;
+    margin: 0 auto 40px;
+  }
+
+  .grid-2 {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+    max-width: 1160px;
+    margin: 0 auto 40px;
+  }
+
+  /* ── CARD ── */
+  .card {
+    background: var(--warm-white);
+    border: 1.5px solid var(--border);
+    border-radius: 10px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .card-header {
+    padding: 14px 18px 13px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .card-header .icon {
+    font-size: 18px;
+    line-height: 1;
+  }
+
+  .card-header h2 {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: white;
+  }
+
+  .card-header .sub {
+    font-size: 10px;
+    font-weight: 400;
+    opacity: 0.8;
+    letter-spacing: 0.04em;
+    margin-left: auto;
+    white-space: nowrap;
+  }
+
+  /* color themes */
+  .amber .card-header  { background: var(--amber); }
+  .teal .card-header   { background: var(--teal); }
+  .plum .card-header   { background: var(--plum); }
+  .slate .card-header  { background: var(--slate); }
+  .rust .card-header   { background: var(--rust); }
+  .sage .card-header   { background: var(--sage); }
+  .gold .card-header   { background: var(--gold); }
+  .ink .card-header    { background: var(--ink); }
+
+  .amber .tag  { background: var(--amber-pale); color: var(--amber); }
+  .teal .tag   { background: var(--teal-pale);  color: var(--teal); }
+  .plum .tag   { background: var(--plum-pale);  color: var(--plum); }
+  .slate .tag  { background: var(--slate-pale); color: var(--slate); }
+  .rust .tag   { background: var(--rust-pale);  color: var(--rust); }
+  .sage .tag   { background: var(--sage-pale);  color: var(--sage); }
+  .gold .tag   { background: var(--gold-pale);  color: var(--gold); }
+  .ink .tag    { background: #E8E2D8;           color: var(--ink); }
+
+  .amber .pill-accent  { background: var(--amber); }
+  .teal .pill-accent   { background: var(--teal); }
+  .plum .pill-accent   { background: var(--plum); }
+  .slate .pill-accent  { background: var(--slate); }
+  .rust .pill-accent   { background: var(--rust); }
+  .sage .pill-accent   { background: var(--sage); }
+  .gold .pill-accent   { background: var(--gold); }
+  .ink .pill-accent    { background: var(--ink); }
+
+  .card-body {
+    padding: 0;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+  }
+
+  /* ── ROW ── */
+  .row {
+    padding: 12px 18px;
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+  }
+
+  .row:last-child { border-bottom: none; }
+
+  .row-label {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+
+  .tag {
+    font-family: 'DM Mono', monospace;
+    font-size: 9px;
+    font-weight: 500;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    padding: 2px 7px;
+    border-radius: 3px;
+    white-space: nowrap;
+  }
+
+  .row-text {
+    font-size: 13px;
+    font-weight: 400;
+    color: var(--ink);
+    line-height: 1.55;
+  }
+
+  .row-text strong {
+    font-weight: 600;
+  }
+
+  /* ── CARD FOOTER ── */
+  .card-footer {
+    padding: 10px 18px;
+    background: #F5F0E8;
+    border-top: 1px solid var(--border);
+    display: flex;
+    gap: 14px;
+    flex-wrap: wrap;
+  }
+
+  .pill {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    font-size: 11px;
+    color: var(--ink-light);
+    font-weight: 400;
+  }
+
+  .pill-accent {
+    display: inline-block;
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+
+  /* ── MEMORY TRICK BANNER ── */
+  .memory-banner {
+    max-width: 1160px;
+    margin: 0 auto 20px;
+    background: var(--ink);
+    color: var(--cream);
+    border-radius: 10px;
+    padding: 18px 24px;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+  }
+
+  .memory-banner .mb-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--amber-light);
+    white-space: nowrap;
+    margin-bottom: 4px;
+  }
+
+  .memory-banner .mb-text {
+    font-size: 14px;
+    line-height: 1.5;
+    font-weight: 300;
+  }
+
+  .memory-banner .mb-text strong {
+    font-weight: 600;
+    color: var(--amber-light);
+  }
+
+  /* ── CHEATSHEET TABLE ── */
+  .cheatsheet-wrap {
+    max-width: 1160px;
+    margin: 0 auto 0;
+    background: var(--warm-white);
+    border: 1.5px solid var(--border);
+    border-radius: 10px;
+    overflow: hidden;
+  }
+
+  .cheatsheet-header {
+    background: var(--ink);
+    padding: 14px 20px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .cheatsheet-header h3 {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: white;
+  }
+
+  .cheatsheet-header span {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    color: rgba(255,255,255,0.5);
+    margin-left: auto;
+  }
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+
+  thead th {
+    background: #F0EBE0;
+    padding: 9px 16px;
+    text-align: left;
+    font-family: 'DM Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--ink-light);
+    font-weight: 500;
+    border-bottom: 1px solid var(--border);
+  }
+
+  tbody tr {
+    border-bottom: 1px solid var(--border);
+  }
+
+  tbody tr:last-child { border-bottom: none; }
+
+  tbody tr:nth-child(even) { background: #FAF6EF; }
+
+  tbody td {
+    padding: 10px 16px;
+    font-size: 13px;
+    color: var(--ink);
+    line-height: 1.5;
+    vertical-align: top;
+  }
+
+  tbody td:first-child {
+    font-weight: 600;
+    white-space: nowrap;
+    font-size: 12px;
+  }
+
+  .dot {
+    display: inline-block;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    margin-right: 6px;
+    vertical-align: middle;
+  }
+
+  /* ── PAGE FOOTER ── */
+  .page-footer {
+    text-align: center;
+    margin-top: 48px;
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.12em;
+    color: #B0A090;
+    text-transform: uppercase;
+  }
+
+  @media (max-width: 900px) {
+    .grid, .grid-2 { grid-template-columns: 1fr 1fr; }
+    body { padding: 32px 20px 48px; }
+  }
+  @media (max-width: 600px) {
+    .grid, .grid-2 { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<div class="page-header">
+  <div class="exam-badge">Anthropic Certification Prep · Module 1</div>
+  <h1>The Claude <em>101</em> Study Guide</h1>
+  <p>Everything you need to know — with what it is, why it matters, what to avoid, and how to remember it</p>
+  <div class="divider"></div>
+</div>
+
+<!-- SECTION 1: Core Frameworks -->
+<div class="section-label" style="max-width:1160px;margin:0 auto 14px;">Core Frameworks</div>
+<div class="grid">
+
+  <!-- CARD 1: Good Prompt -->
+  <div class="card amber">
+    <div class="card-header">
+      <span class="icon">✦</span>
+      <h2>The Good Prompt</h2>
+      <span class="sub">SDR Framework</span>
+    </div>
+    <div class="card-body">
+      <div class="row">
+        <div class="row-label"><span class="tag">What it is</span></div>
+        <p class="row-text">A 3-part structure for every prompt: <strong>Stage</strong> (your role + context), <strong>Define</strong> (the task), <strong>Rules</strong> (tone, format, examples).</p>
+      </div>
+      <div class="row">
+        <div class="row-label"><span class="tag">Why it works</span></div>
+        <p class="row-text">Claude performs better when it knows who you are, what you need, and exactly how to deliver it. Less guesswork = better output.</p>
+      </div>
+      <div class="row">
+        <div class="row-label"><span class="tag">Common mistake</span></div>
+        <p class="row-text">Jumping straight to the task without context. "Write a report" gives Claude nothing. "I'm a marketing lead preparing a Series A deck — write a 5-page market report with citations" is complete.</p>
+      </div>
+      <div class="row">
+        <div class="row-label"><span class="tag">Memory trick</span></div>
+        <p class="row-text"><strong>SDR = film set.</strong> Set the scene → Direct the action → Run the rules. Every good film has all three.</p>
+      </div>
+    </div>
+    <div class="card-footer">
+      <div class="pill"><span class="pill-accent amber"></span> Beginner</div>
+      <div class="pill"><span class="pill-accent amber"></span> Applies to every single prompt</div>
+    </div>
+  </div>
+
+  <!-- CARD 2: 4D Framework -->
+  <div class="card plum">
+    <div class="card-header">
+      <span class="icon">◈</span>
+      <h2>The 4D Framework</h2>
+      <span class="sub">AI Fluency Model</span>
+    </div>
+    <div class="card-body">
+      <div class="row">
+        <div class="row-label"><span class="tag">What it is</span></div>
+        <p class="row-text">Academic framework (Dakan + Feller) defining 4 competencies for effective AI collaboration. <strong>Delegation · Description · Discernment · Diligence</strong></p>
+      </div>
+      <div class="row">
+        <div class="row-label"><span class="tag">Each D explained</span></div>
+        <p class="row-text">
+          <strong>Delegation</strong> — who does what (human vs AI)<br>
+          <strong>Description</strong> — how clearly you communicate<br>
+          <strong>Discernment</strong> — evaluating AI output critically<br>
+          <strong>Diligence</strong> — using AI ethically, staying accountable
+        </p>
+      </div>
+      <div class="row">
+        <div class="row-label"><span class="tag">Common mistake</span></div>
+        <p class="row-text">Skipping Discernment — trusting AI output without reviewing it. Claude can be wrong. Always check.</p>
+      </div>
+      <div class="row">
+        <div class="row-label"><span class="tag">Memory trick</span></div>
+        <p class="row-text"><strong>Delegate the task → Describe it clearly → Discern the output → Do it right.</strong> Four verbs in order.</p>
+      </div>
+    </div>
+    <div class="card-footer">
+      <div class="pill"><span class="pill-accent plum"></span> Exam priority: HIGH</div>
+      <div class="pill"><span class="pill-accent plum"></span> Academic sourced — memorize the 4 Ds</div>
+    </div>
+  </div>
+
+  <!-- CARD 3: Research -->
+  <div class="card teal">
+    <div class="card-header">
+      <span class="icon">◎</span>
+      <h2>Research Mode</h2>
+      <span class="sub">vs. Web Search · Extended Thinking · Enterprise Search</span>
+    </div>
+    <div class="card-body">
+      <div class="row">
+        <div class="row-label"><span class="tag">What it is</span></div>
+        <p class="row-text">An agentic, multi-step process. Claude plans → searches repeatedly (each search builds on the last) → synthesizes → cites every source. Extended thinking auto-activates.</p>
+      </div>
+      <div class="row">
+        <div class="row-label"><span class="tag">Use it when</span></div>
+        <p class="row-text">You need a <strong>comprehensive report</strong> from multiple sources, with citations, that would take hours manually. Market research, competitive analysis, project briefs.</p>
+      </div>
+      <div class="row">
+        <div class="row-label"><span class="tag">Do NOT use when</span></div>
+        <p class="row-text">
+          <strong>Web search</strong> → quick single fact<br>
+          <strong>Extended thinking</strong> → deep reasoning, no external data needed<br>
+          <strong>Enterprise search</strong> → internal org docs, Slack, emails, policies
+        </p>
+      </div>
+      <div class="row">
+        <div class="row-label"><span class="tag">Memory trick</span></div>
+        <p class="row-text"><strong>Research goes OUT</strong> (web). <strong>Extended thinking stays IN</strong> (Claude's head). <strong>Enterprise searches YOUR stuff</strong> (internal docs).</p>
+      </div>
+    </div>
+    <div class="card-footer">
+      <div class="pill"><span class="pill-accent teal"></span> Exam priority: HIGH</div>
+      <div class="pill"><span class="pill-accent teal"></span> Know all 4 tools and when to use each</div>
+    </div>
+  </div>
+</div>
+
+<!-- SECTION 2: Features -->
+<div class="section-label" style="max-width:1160px;margin:0 auto 14px;">Key Features</div>
+<div class="grid">
+
+  <!-- CARD 4: Projects -->
+  <div class="card slate">
+    <div class="card-header">
+      <span class="icon">▣</span>
+      <h2>Projects</h2>
+      <span class="sub">Persistent Workspace</span>
+    </div>
+    <div class="card-body">
+      <div class="row">
+        <div class="row-label"><span class="tag">What it is</span></div>
+        <p class="row-text">Dedicated workspaces that remember your files, instructions, and context across every conversation inside them. Claude never starts from zero.</p>
+      </div>
+      <div class="row">
+        <div class="row-label"><span class="tag">Use it when</span></div>
+        <p class="row-text">Ongoing work (not one-off questions), reusable reference materials, consistent tone/format requirements, or team collaboration.</p>
+      </div>
+      <div class="row">
+        <div class="row-label"><span class="tag">3 permission levels</span></div>
+        <p class="row-text">
+          <strong>Can view</strong> — read + chat, no edits<br>
+          <strong>Can edit</strong> — full collaboration, change instructions<br>
+          <strong>Owner</strong> — controls everything including access
+        </p>
+      </div>
+      <div class="row">
+        <div class="row-label"><span class="tag">RAG mode</span></div>
+        <p class="row-text">Auto-activates when knowledge base fills up. Expands capacity <strong>up to 10×</strong>. Claude retrieves only what's relevant — experience feels the same.</p>
+      </div>
+      <div class="row">
+        <div class="row-label"><span class="tag">Common mistake</span></div>
+        <p class="row-text">Uploading files with vague names like "document1.pdf". Claude uses filenames to understand content — name them descriptively.</p>
+      </div>
+    </div>
+    <div class="card-footer">
+      <div class="pill"><span class="pill-accent slate"></span> Team + Enterprise plans only for sharing</div>
+      <div class="pill"><span class="pill-accent slate"></span> RAG = 10× capacity</div>
+    </div>
+  </div>
+
+  <!-- CARD 5: Skills -->
+  <div class="card sage">
+    <div class="card-header">
+      <span class="icon">⬡</span>
+      <h2>Skills</h2>
+      <span class="sub">Expertise Packages</span>
+    </div>
+    <div class="card-body">
+      <div class="row">
+        <div class="row-label"><span class="tag">What it is</span></div>
+        <p class="row-text">Folders of instructions, scripts, and resources that Claude loads dynamically to perform specialized, repeatable tasks — like expertise packages.</p>
+      </div>
+      <div class="row">
+        <div class="row-label"><span class="tag">Two types</span></div>
+        <p class="row-text">
+          <strong>Anthropic Skills</strong> — built-in, auto-invoked. Examples: Excel, Word, PowerPoint, PDF creation.<br><br>
+          <strong>Custom Skills</strong> — you or your org uploads them. Example: brand voice review, quarterly analysis workflow.
+        </p>
+      </div>
+      <div class="row">
+        <div class="row-label"><span class="tag">To enable</span></div>
+        <p class="row-text">Settings → Capabilities → toggle on <strong>Code execution and file creation</strong> first, then Skills. (Required dependency — Skills won't work without it.)</p>
+      </div>
+      <div class="row">
+        <div class="row-label"><span class="tag">Common mistake</span></div>
+        <p class="row-text">Thinking Skills = Plugins. They're different. Skills = repeatable workflows. Plugins = external data connectors.</p>
+      </div>
+    </div>
+    <div class="card-footer">
+      <div class="pill"><span class="pill-accent sage"></span> Pro / Max / Team / Enterprise</div>
+      <div class="pill"><span class="pill-accent sage"></span> Requires code execution ON</div>
+    </div>
+  </div>
+
+  <!-- CARD 6: Artifacts -->
+  <div class="card rust">
+    <div class="card-header">
+      <span class="icon">⬟</span>
+      <h2>Artifacts</h2>
+      <span class="sub">Interactive Outputs</span>
+    </div>
+    <div class="card-body">
+      <div class="row">
+        <div class="row-label"><span class="tag">What it is</span></div>
+        <p class="row-text">Interactive, reusable outputs Claude builds — calculators, trackers, charts, dashboards — not just paragraphs. Functional tools you can actually use.</p>
+      </div>
+      <div class="row">
+        <div class="row-label"><span class="tag">Why it matters</span></div>
+        <p class="row-text">Unlike text responses, Artifacts persist. A content tracker with columns for topic, status, hook, publish date is something you reference repeatedly, not read once.</p>
+      </div>
+      <div class="row">
+        <div class="row-label"><span class="tag">Common mistake</span></div>
+        <p class="row-text">Thinking Claude only outputs text. When you need a working tool — ask for one. "Build me a tracker" not "write me a list."</p>
+      </div>
+      <div class="row">
+        <div class="row-label"><span class="tag">Best for</span></div>
+        <p class="row-text">Dashboards, planners, comparison tables, calculators, anything you'll reuse or interact with.</p>
+      </div>
+    </div>
+    <div class="card-footer">
+      <div class="pill"><span class="pill-accent rust"></span> Zero setup — built in</div>
+      <div class="pill"><span class="pill-accent rust"></span> Ask: "build me a [tool]" not "write me a [thing]"</div>
+    </div>
+  </div>
+</div>
+
+<!-- SECTION 3: Cowork -->
+<div class="section-label" style="max-width:1160px;margin:0 auto 14px;">Cowork — Desktop App Features</div>
+<div class="card ink" style="max-width:1160px;margin:0 auto 40px;">
+  <div class="card-header">
+    <span class="icon">⊞</span>
+    <h2>Cowork</h2>
+    <span class="sub">Desktop App Only — NOT Claude Code</span>
+  </div>
+  <div class="card-body" style="display:grid;grid-template-columns:repeat(3,1fr);gap:0;">
+    <div class="row" style="border-right:1px solid var(--border);">
+      <div class="row-label"><span class="tag" style="background:#E8E2D8;color:var(--ink);">Folder Access</span></div>
+      <p class="row-text">Claude reads and writes to folders you share. Only those folders — nothing else on your machine.</p>
+    </div>
+    <div class="row" style="border-right:1px solid var(--border);">
+      <div class="row-label"><span class="tag" style="background:#E8E2D8;color:var(--ink);">Scheduled Tasks</span></div>
+      <p class="row-text">Recurring work on a timer — daily briefings, weekly roundups, inbox triage. Catches up if your computer was off.</p>
+    </div>
+    <div class="row">
+      <div class="row-label"><span class="tag" style="background:#E8E2D8;color:var(--ink);">Subagents</span></div>
+      <p class="row-text">Background workers Claude spins up for complex tasks. It breaks work into subtasks, runs them in parallel, gives you one result.</p>
+    </div>
+    <div class="row" style="border-right:1px solid var(--border);border-top:1px solid var(--border);">
+      <div class="row-label"><span class="tag" style="background:#E8E2D8;color:var(--ink);">Dispatch</span></div>
+      <p class="row-text">Continue Cowork conversations from your phone. Hands tasks to your desktop — files, apps, connectors — while you're mobile.</p>
+    </div>
+    <div class="row" style="border-right:1px solid var(--border);border-top:1px solid var(--border);">
+      <div class="row-label"><span class="tag" style="background:#E8E2D8;color:var(--ink);">Browser Use</span></div>
+      <p class="row-text">Claude navigates Chrome pages, interacts with sites, pulls data directly into tasks. Great for scraping competitor pricing across 10 sites.</p>
+    </div>
+    <div class="row" style="border-top:1px solid var(--border);">
+      <div class="row-label"><span class="tag" style="background:#E8E2D8;color:var(--ink);">Computer Use</span></div>
+      <p class="row-text">Claude clicks, types, opens apps — like you would. Research preview, Mac only. Permission prompt required per app. Priority order: connectors → Chrome → screen.</p>
+    </div>
+  </div>
+  <div class="card-footer" style="background:#252015;">
+    <div class="pill" style="color:#B0A080;"><span class="pill-accent" style="background:var(--amber-light);"></span> KEY EXAM DISTINCTION: Cowork = desktop app. Claude Code = terminal/CLI. These are separate products.</div>
+  </div>
+</div>
+
+<!-- MEMORY BANNER -->
+<div class="memory-banner">
+  <div>
+    <div class="mb-label">Exam Memory Tricks</div>
+    <div class="mb-text">
+      <strong>SDR</strong> (Stage · Define · Rules) &nbsp;·&nbsp;
+      <strong>4D</strong> (Delegate · Describe · Discern · Diligence) &nbsp;·&nbsp;
+      <strong>RAG = 10×</strong> capacity &nbsp;·&nbsp;
+      <strong>Research goes OUT</strong> · <strong>Extended Thinking stays IN</strong> · <strong>Enterprise searches YOUR stuff</strong> &nbsp;·&nbsp;
+      <strong>Skills ≠ Plugins</strong> &nbsp;·&nbsp;
+      <strong>Cowork ≠ Claude Code</strong>
+    </div>
+  </div>
+</div>
+
+<!-- QUICK RECALL TABLE -->
+<div style="max-width:1160px;margin:20px auto 0;">
+  <div class="section-label" style="margin-top:32px;margin-bottom:14px;">Quick Recall — Exam Cheatsheet</div>
+  <div class="cheatsheet-wrap">
+    <div class="cheatsheet-header">
+      <h3>If the exam asks about…</h3>
+      <span>Claude 101 · Module 1</span>
+    </div>
+    <table>
+      <thead>
+        <tr>
+          <th>Topic</th>
+          <th>The answer</th>
+          <th>The trap</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><span class="dot" style="background:var(--amber);"></span>Good Prompt elements</td>
+          <td>Stage + Define + Rules (SDR)</td>
+          <td>Only 2 of 3 is a bad prompt</td>
+        </tr>
+        <tr>
+          <td><span class="dot" style="background:var(--plum);"></span>4D Framework origin</td>
+          <td>Dakan (Ringling) + Feller (UCC) research</td>
+          <td>It's academic — not just Claude lore</td>
+        </tr>
+        <tr>
+          <td><span class="dot" style="background:var(--plum);"></span>4D = what order?</td>
+          <td>Delegation → Description → Discernment → Diligence</td>
+          <td>Don't confuse Description with Discernment</td>
+        </tr>
+        <tr>
+          <td><span class="dot" style="background:var(--teal);"></span>When to use Research</td>
+          <td>Multi-source synthesis, citations, comprehensive report</td>
+          <td>Not for quick facts — use web search instead</td>
+        </tr>
+        <tr>
+          <td><span class="dot" style="background:var(--teal);"></span>When to use Extended Thinking</td>
+          <td>Complex reasoning with NO external data (math, logic, code)</td>
+          <td>Not for anything requiring web sources</td>
+        </tr>
+        <tr>
+          <td><span class="dot" style="background:var(--teal);"></span>When to use Enterprise Search</td>
+          <td>Internal org knowledge only — Slack, emails, docs, policies</td>
+          <td>Not for public web information</td>
+        </tr>
+        <tr>
+          <td><span class="dot" style="background:var(--slate);"></span>RAG mode trigger</td>
+          <td>Auto-activates when knowledge base approaches context limit</td>
+          <td>You don't turn it on — it's automatic</td>
+        </tr>
+        <tr>
+          <td><span class="dot" style="background:var(--slate);"></span>RAG capacity boost</td>
+          <td>Up to 10×</td>
+          <td>Not 5×, not unlimited — 10×</td>
+        </tr>
+        <tr>
+          <td><span class="dot" style="background:var(--slate);"></span>Project permissions</td>
+          <td>View / Edit / Owner</td>
+          <td>View = can chat; Edit = can change instructions</td>
+        </tr>
+        <tr>
+          <td><span class="dot" style="background:var(--sage);"></span>Skill types</td>
+          <td>Anthropic (auto) + Custom (uploaded by you/org)</td>
+          <td>Skills ≠ Plugins (plugins = external data)</td>
+        </tr>
+        <tr>
+          <td><span class="dot" style="background:var(--sage);"></span>Skills requirement</td>
+          <td>Code execution + file creation must be ON first</td>
+          <td>Skills won't load without that dependency</td>
+        </tr>
+        <tr>
+          <td><span class="dot" style="background:var(--ink);"></span>Cowork vs Claude Code</td>
+          <td>Cowork = desktop app. Claude Code = terminal CLI.</td>
+          <td>They are completely separate products</td>
+        </tr>
+        <tr>
+          <td><span class="dot" style="background:var(--ink);"></span>Computer use availability</td>
+          <td>Research preview · Pro/Max plans · Mac only</td>
+          <td>Not GA, not all plans, not Windows yet</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<div class="page-footer">Claude 101 · Anthropic Certification Study Guide · Updated 2026-04-18 · Add Module 2 as you go</div>
+
+</body>
+</html>
